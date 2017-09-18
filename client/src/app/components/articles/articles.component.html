@@ -1,0 +1,64 @@
+<div class="col-md-10 col-md-push-1">
+  <h3 class="text-muted" id="head">Статьи</h3>
+
+  <div class="col-md-12">
+    <div *ngIf="admin">
+      <a [routerLink]="['/create-article']"><button type="button" name="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</button></a>
+      <button [disabled]="!loadingArticles" type="button" name="button" class="btn btn-warning" (click)="refreshArticles()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Обновить</button>
+    </div>
+
+    <div *ngIf="loadingArticles" class="col-md-9">
+      <div id="grid">
+        <div *ngFor="let article of articlesArray; let i = index" [attr.data-index]="i" class="col-xs-12 col-md-12">
+          <div *ngIf="article.number == currentId">
+            <div id="grid-cell">
+              <a id="links" [routerLink]="['/full-article/', article.post._id]"><h4 id="cell">{{article.post.createdAt | date:'dd.MM.y'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{article.post.title}}</h4></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav *ngIf="loadingArticles" id="pagination-bottom" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" *ngIf="currentId-1 >= 1">
+            <a class="page-link" [routerLink]="['/articles/', currentId-1]" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+          </li>
+          <li *ngFor="let index of countArray" class="page-item"><a class="page-link" [routerLink]="['/articles/', index]">{{index}}</a></li>
+          <li class="page-item" *ngIf="currentId+1 <= count">
+            <a class="page-link" [routerLink]="['/articles/', currentId+1]" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div id="sidebar" *ngIf="loadingNews" class="hidden-sm hidden-xs col-md-3 no-padding">
+      <h4 id="sidebar-heading">Последние новости</h4>
+      <div id="sidebar-main">
+        <div *ngFor="let one_news of news; let i = index" [attr.data-index]="i" (click)="redirect(one_news._id)">
+          <div *ngIf="i==0" id="sidebar-first">
+            <div>
+              <a [routerLink]="['/full-news/', one_news._id]"><img class="sidebar-img-first" src="{{one_news.url}}" width="200" height="200"><img></a>
+            </div>
+            <div id="sidebar-first-text">
+              <h4>{{one_news.title}}</h4>
+            </div>
+          </div>
+          <div *ngIf="i>0" id="sidebar-else" class="col-md-12 no-padding">
+            <div id="sidebar-else-main">
+              <div id="sidebar-else-left" class="col-md-4">
+                  <a [routerLink]="['/full-news/', one_news._id]"><img class="sidebar-img" src="{{one_news.url}}" width="50" height="50"><img></a>
+              </div>
+              <div id="sidebar-else-right" class="col-md-8">
+                  <h5>{{one_news.title}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

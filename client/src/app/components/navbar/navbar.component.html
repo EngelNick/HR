@@ -1,0 +1,32 @@
+<!-- <div id="main" class="container"> -->
+<nav id="main" class="navbar navbar-default">
+  <div class="container">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+          aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+        <a target="_blank" href="https://www.linkedin.com/in/tanya-zatonatskaya-7560aa98/" id="all-a" class="navbar-brand">HR Татьяна</a>
+        
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a id="all-a" routerLink="/news"><span class="glyphicon glyphicon-book"></span>&nbsp;Новости</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a id="all-a" routerLink="/vacancies"><span class="glyphicon glyphicon-apple"></span>&nbsp;Вакансии</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a id="all-a" routerLink="/registration"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Регистрация</a></li>
+          <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a id="all-a" routerLink="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;Профиль</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a id="all-a" routerLink="/articles"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Статьи</a></li>
+          <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a id="all-a" routerLink="/login"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Вход</a></li>
+          <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a id="all-a" routerLink="/logout" (click)="onLogoutClick()"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Выход</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- </div> -->

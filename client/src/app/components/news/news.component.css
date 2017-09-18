@@ -1,0 +1,29 @@
+.main {
+}
+
+#main-div{
+    min-height: 690px;
+}
+
+#some-news {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#head {
+    /* text-align: center; */
+    margin-left: 15px;
+    margin-bottom: -15px;
+}
+
+/* .page-counter{
+    text-align: center;
+    margin-bottom: 20px;
+} */
+
+#pagination-bottom {
+    text-align: center;
+}
+#add-refresh{
+    margin-top: 20px;
+}

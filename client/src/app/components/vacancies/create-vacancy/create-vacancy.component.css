@@ -1,0 +1,12 @@
+#hot{
+    margin-top: -10px;
+    margin-bottom: -10px
+}
+
+#hot-label:hover{
+    cursor: pointer;
+}
+
+#title{
+    margin-top: -10px;
+}

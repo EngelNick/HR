@@ -1,0 +1,31 @@
+<h2 class="text-muted" id="head">Создание новости</h2>
+
+<div class="row show-hide-message" *ngIf="message">
+  <div [ngClass]="messageClass">
+    {{message}}
+  </div>
+</div>
+
+<form [formGroup]="form" (submit)="onCreateSubmit()">
+
+  <div class="form-group">
+    <label for="title">Заголовок</label>
+    <div [ngClass]="{'has-success': form.controls.title.valid && form.controls.title.dirty, 'has-error': form.controls.title.dirty && form.controls.title.errors }">
+      <input type="text" name="title" class="form-control" placeholder="*Заголовок новости" autocomplete="off" formControlName="title"
+      />
+      <ul class="help-block">
+        <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">Заголовок необходимо заполнить</li>
+        <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.maxlength) || (form.controls.title.dirty && form.controls.title.errors?.minlength)">Длина заголовка должна быть не более 50 но не менeе 3</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="body">Тело новости</label>
+    <text-editor [elementId]="'body'" (onEditorKeyup)="onBodyTextEditorKeyUp($event)"></text-editor>
+  </div>
+
+  <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Назад</button>
+  <button [disabled]="processing || !form.valid" type="submit" name="button" (click)="onCreateSubmit()" class="btn btn-success">Создать</button>
+
+</form>

@@ -1,0 +1,34 @@
+<div class="row show-hide-message" *ngIf="message">
+  <div [ngClass]="messageClass">
+    {{message}}
+  </div>
+</div>
+
+<div id="post" *ngIf="!loading">
+  <div class="row featurette">
+    <div class="col-xs-12 col-md-10 col-md-push-1">
+      <h3 class="featurette-heading">{{article.title}}</h3>
+      <div [innerHTML]="article.body | safeHtml">{{article.body}}</div>
+      <div>
+        <strong>Автор: </strong>{{article.createdBy}}
+        <br />
+        <strong>Дата: </strong>{{article.createdAt | date:'dd.MM.yyyy'}}
+        <br />
+        <strong>Понравилось: </strong>{{article.likes}}
+        <div *ngIf="username" class="dropdown">
+          <button type="button" name="button" class="btn btn-sm btn-success" (click)="likeArticle(article._id)">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+          <div class="dropdown-content">
+            <a *ngFor="let user of article.likedBy.reverse()">{{user}}</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:5px">
+        <a *ngIf="admin" [routerLink]="['/edit-article/', article._id]"><button type="button" name="button" class="btn btn-sm btn-info">Редактировать</button></a>
+        <a *ngIf="admin" [routerLink]="['/delete-article/', article._id]"><button type="button" name="button" class="btn btn-sm btn-warning">Удалить</button></a>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<h2 class="text-muted" id="head">Создание вакансии</h2>
+
+<div class="row show-hide-message" *ngIf="message">
+  <div [ngClass]="messageClass">
+    {{message}}
+  </div>
+</div>
+
+<form [formGroup]="form" (submit)="onCreateSubmit()">
+
+    <hr>
+    <div id="hot" class="form-check">
+      <label id="hot-label" class="form-check-label">
+        <input type="checkbox" name="hot" class="form-check-input" formControlName="hot">
+        Горящая ли вакансия?
+      </label>
+    </div> 
+    <hr>
+
+  <div id="title" class="form-group">
+    <label for="title">Заголовок</label>
+    <div [ngClass]="{'has-success': form.controls.title.valid && form.controls.title.dirty, 'has-error': form.controls.title.dirty && form.controls.title.errors }">
+      <input type="text" name="title" class="form-control" placeholder="*Заголовок вакансии" autocomplete="off" formControlName="title"/>
+      <ul class="help-block">
+        <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">Заголовок необходимо заполнить</li>
+        <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.maxlength) || (form.controls.title.dirty && form.controls.title.errors?.minlength)">Длина заголовка должна быть не более 50 но не менeе 3</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form group">
+    <label for="url">URL логотипа компании</label>
+    <div [ngClass]="{'has-success': true, 'has-error': form.controls.url.errors?.maxlength }">
+      <input type="text" name="url" placeholder="*URL для картинки на заглавную страницу" class="form-control" autocomplete="on"
+        formControlName="url" />
+      <ul class="help-block">
+        <li *ngIf="(form.controls.url.errors?.maxlength)">Длина url картинки должна быть не более 250</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form group">
+    <label for="hat">Текст для заглавной страницы</label>
+    <div [ngClass]="{'has-success': form.controls.hat.valid && form.controls.hat.dirty, 'has-error': form.controls.hat.dirty && form.controls.hat.errors }">
+      <input type="text" name="hat" placeholder="*Это для заглавной страницы" class="form-control" autocomplete="off" formControlName="hat"
+      />
+      <ul class="help-block">
+        <li *ngIf="form.controls.hat.dirty && form.controls.hat.errors?.required">Это поле необходимо заполнить</li>
+        <li *ngIf="(form.controls.hat.dirty && form.controls.hat.errors?.maxlength) || (form.controls.hat.dirty && form.controls.hat.errors?.minlength)">Текст для заглавной страницы должен быть не более 250 но не менeе 100</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="body">Тело вакансии</label>
+    <text-editor [elementId]="'body'" (onEditorKeyup)="onBodyTextEditorKeyUp($event)"></text-editor>
+  </div>
+
+  <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Назад</button>
+  <button [disabled]="processing || !form.controls.hat.valid || !form.controls.title.valid" type="submit" name="button" (click)="onCreateSubmit()" class="btn btn-success">Создать</button>
+
+</form>

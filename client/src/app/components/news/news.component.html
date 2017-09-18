@@ -1,0 +1,43 @@
+<!-- <div class="col-md-10 col-md-push-1"> -->
+<h3 class="text-muted" id="head">Новости</h3>
+
+<div class="col-md-12">
+  <div id="add-refresh" *ngIf="admin">
+    <a [routerLink]="['/create-news']"><button type="button" name="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</button></a>
+    <button [disabled]="!loadingNews" type="button" name="button" class="btn btn-warning" (click)="refreshNews()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Обновить</button>
+  </div>
+
+  <div id="main-div" *ngIf="loadingNews">
+    <div class="main" *ngFor="let news of newsArray; let i = index" [attr.data-index]="i">
+      <div *ngIf="news.number == currentId">
+        <div id="some-news" class="col-xs-12 col-md-4">
+          <img class="img-responsiv" [src]="news.post.url" onError="this.src='../../../assets/images/placeholder.png';" width="250" height="250">
+          <a [routerLink]="['/full-news/', news.post._id]">
+            <h3>{{news.post.title}}</h3>
+          </a>
+          <p>{{news.post.hat}}</p>
+          <p><a class="btn btn-primary" [routerLink]="['/full-news/', news.post._id]" role="button">Подробней</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav *ngIf="loadingNews" id="pagination-bottom" aria-label="Page navigation example" class="col-xs-12 col-md-12">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" *ngIf="currentId-1 >= 1">
+        <a class="page-link" [routerLink]="['/news/', currentId-1]" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+      </li>
+      <li *ngFor="let index of countArray" class="page-item"><a class="page-link" [routerLink]="['/news/', index]">{{index}}</a></li>
+      <li class="page-item" *ngIf="currentId+1 <= count">
+        <a class="page-link" [routerLink]="['/news/', currentId+1]" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<!-- </div> -->
