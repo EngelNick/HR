@@ -81,6 +81,7 @@ export class EditNewsComponent implements OnInit {
     this.news.url = this.form.get('url').value;
     this.news.hat = this.form.get('hat').value;
     this.disableFormNewsForm();
+    this.imageBodyCorrector();
     this.newsService.editNews(this.news).subscribe(data => {
       if (!data.success) {
         this.message = data.message;
@@ -117,4 +118,12 @@ export class EditNewsComponent implements OnInit {
     this.location.back();
   }
 
+  imageBodyCorrector() {
+    let str = '';
+    if (this.news.body.indexOf('<img style="') || this.news.body.indexOf('<img style="max') <= 0) {
+      str = this.news.body.substring( 0, this.news.body.indexOf('<img style="') + 12) +
+      'max-width: 100%; height: auto;' + this.news.body.substring(this.news.body.indexOf('<img style="') + 12);
+      this.news.body = str;
+    }
+  }
 }

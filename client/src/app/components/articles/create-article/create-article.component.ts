@@ -71,13 +71,13 @@ export class CreateArticleComponent implements OnInit {
     this.processing = true;
     this.disableFormArticleForm();
 
-    const article = {
+    this.article = {
       title: this.form.get('title').value,
       body: this.form.body,
       createdBy: this.username
     }
-
-    this.articlesService.newArticle(article).subscribe(data => {
+    this.imageBodyCorrector();
+    this.articlesService.newArticle(this.article).subscribe(data => {
       if (!data.success) {
         this.messageClass = 'alert alert-danger';
         this.message = data.message;
@@ -86,6 +86,7 @@ export class CreateArticleComponent implements OnInit {
       } else {
         this.messageClass = 'alert alert-success';
         this.message = data.message;
+        this.articlesService.getAllArticles();
         setTimeout(() => {
           this.processing = false;
           this.message = '';
@@ -99,6 +100,15 @@ export class CreateArticleComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  imageBodyCorrector() {
+    let str = '';
+    if (this.article.body.indexOf('<img style="') || this.article.body.indexOf('<img style="max') <= 0) {
+      str = this.article.body.substring( 0, this.article.body.indexOf('<img style="') + 12) +
+      'max-width: 100%; height: auto;' + this.article.body.substring(this.article.body.indexOf('<img style="') + 12);
+      this.article.body = str;
+    }
   }
 
 }

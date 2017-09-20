@@ -26,7 +26,7 @@
               </a>
           </li>
           <li *ngFor="let index of countArray" class="page-item"><a class="page-link" [routerLink]="['/articles/', index]">{{index}}</a></li>
-          <li class="page-item" *ngIf="currentId+1 <= count">
+          <li class="page-item" *ngIf="currentId+1 <= countArray">
             <a class="page-link" [routerLink]="['/articles/', currentId+1]" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Next</span>
@@ -36,11 +36,11 @@
       </nav>
     </div>
 
-    <div id="sidebar" *ngIf="loadingNews" class="hidden-sm hidden-xs col-md-3 no-padding">
+    <div id="sidebar" *ngIf="loadingTwelveNews" class="hidden-sm hidden-xs col-md-3 no-padding">
       <h4 id="sidebar-heading">Последние новости</h4>
       <div id="sidebar-main">
-        <div *ngFor="let one_news of news; let i = index" [attr.data-index]="i" (click)="redirect(one_news._id)">
-          <div *ngIf="i==0" id="sidebar-first">
+        <div *ngFor="let one_news of news; let i = index" [attr.data-index]="i">
+          <div *ngIf="i==0" id="sidebar-first" (click)="redirect(one_news._id)">
             <div>
               <a [routerLink]="['/full-news/', one_news._id]"><img class="sidebar-img-first" src="{{one_news.url}}" width="200" height="200"><img></a>
             </div>
@@ -49,7 +49,7 @@
             </div>
           </div>
           <div *ngIf="i>0" id="sidebar-else" class="col-md-12 no-padding">
-            <div id="sidebar-else-main">
+            <div id="sidebar-else-main" (click)="redirect(one_news._id)">
               <div id="sidebar-else-left" class="col-md-4">
                   <a [routerLink]="['/full-news/', one_news._id]"><img class="sidebar-img" src="{{one_news.url}}" width="50" height="50"><img></a>
               </div>

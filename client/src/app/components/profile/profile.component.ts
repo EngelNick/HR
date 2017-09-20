@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "app/services/auth.service";
+import { AuthService } from 'app/services/auth.service';
 
 
 @Component({
@@ -15,13 +15,16 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService
-  ) { }
-  
+  ) {
+  }
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
+      if (this.username !== profile.user.username && this.admin !== profile.user.admin) {
       this.username = profile.user.username;
       this.email = profile.user.email;
       this.admin = profile.user.admin ? 'Вы имеете права администратора' : 'Вы не администратор';
+    } else {
+    }
     });
   }
 

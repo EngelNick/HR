@@ -81,8 +81,17 @@
     border-bottom: 2px solid gray;
 }
 
+#sidebar-first:hover{
+    cursor: pointer;
+}
+
+
 #sidebar-else{
     border-bottom: 2px solid gray;
+}
+
+#sidebar-else:hover{
+    cursor: pointer;
 }
 
 IMG.sidebar-img{

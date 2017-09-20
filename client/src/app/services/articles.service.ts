@@ -6,6 +6,10 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 export class ArticlesService {
   options;
   domain = this.authService.domain;
+  loadingArticles;
+  articlesPosts;
+  articlesArray;
+  countArray;
 
   constructor(
     private authService: AuthService,
@@ -29,7 +33,33 @@ export class ArticlesService {
 
   getAllArticles() {
     this.createAuthenticationHeaders();
-    return this.http.get(this.domain + '/articles/allArticles/', this.options).map(res => res.json());
+    this.http.get(this.domain + '/articles/allArticles/', this.options).map(res => res.json()).subscribe(data => {
+      if (this.articlesPosts !== data.articles) {
+        this.articlesArray = [];
+        this.countArray = [];
+        this.articlesPosts = data.articles;
+        const articlesCount = this.articlesPosts.length;
+        let count;
+        count = Math.ceil(articlesCount / 12);
+        let s;
+        for (let i = 1; i <= count; i++) {
+          if (i === 1 && articlesCount === 13) {
+            s = articlesCount - 1;
+          } else {
+            s = articlesCount;
+          }
+          for (let k = (i - 1) * 12; k < s; k++) {
+            this.articlesArray.push({ number: i, post: this.articlesPosts[k] });
+          }
+        }
+        for (let i = 1; i <= count; i++) {
+          this.countArray.push(i);
+        }
+        this.loadingArticles = true;
+      } else {
+        this.loadingArticles = true;
+      }
+    })
   }
 
   getSingleArticle(id) {

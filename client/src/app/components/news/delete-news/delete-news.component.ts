@@ -60,6 +60,7 @@ export class DeleteNewsComponent implements OnInit {
         this.messageClass = 'alert alert-success';
         this.message = data.message;
         this.processing = true;
+        this.newsService.getAllNews();
         setTimeout(() => {
           this.router.navigate(['/news']);
         }, 2000);

@@ -60,6 +60,7 @@ export class DeleteArticleComponent implements OnInit {
         this.messageClass = 'alert alert-success';
         this.message = data.message;
         this.processing = true;
+        this.articlesService.getAllArticles();
         setTimeout(() => {
           this.router.navigate(['/articles']);
         }, 2000);

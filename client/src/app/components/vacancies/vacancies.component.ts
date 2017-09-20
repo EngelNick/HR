@@ -12,14 +12,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class VacanciesComponent implements OnInit {
 
   admin = false;
-  loadingVacancies = false;
-  username;
+  loadingVacancies;
   vacanciesPosts;
-  vacanciesArray = [];
+  vacanciesArray;
   vacanciesCount;
-  count;
-  countArray = [];
+  countArray;
   currentId;
+  // username;
+  // count;
 
   constructor(
     private vacanciesService: VacanciesService,
@@ -29,16 +29,20 @@ export class VacanciesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      if (profile.success) {
-        this.username = profile.user.username;
-      }
-    });
-    this.authService.isAdmin().subscribe(data => {
-      if (data.success) {
-        this.admin = data.user.admin;
-      }
-    });
+    // if (this.username === undefined) {
+    //   this.authService.getProfile().subscribe(profile => {
+    //     if (profile.success) {
+    //       this.username = profile.user.username;
+    //     }
+    //   });
+    // }
+    if (!this.admin) {
+      this.authService.isAdmin().subscribe(data => {
+        if (data.success) {
+          this.admin = data.user.admin;
+        }
+      });
+    }
 
     this.activatedRoute.params.subscribe(
       params => {
@@ -49,46 +53,69 @@ export class VacanciesComponent implements OnInit {
         }
       });
 
-
     this.getAllVacancies();
-    this.loadingVacancies = true;
-  }
-
-  getAllVacancies() {
-    this.vacanciesArray = [];
-    this.countArray = [];
-    this.vacanciesService.getAllVacancies().subscribe(data => {
-      this.vacanciesPosts = data.vacancies;
-      this.vacanciesCount = this.vacanciesPosts.length;
-      this.count = Math.ceil(this.vacanciesCount / 12);
-      let s;
-      for (let i = 1; i <= this.count; i++) {
-        if (i === 1 && this.vacanciesCount === 13) {
-          s = this.vacanciesCount - 1;
-        } else {
-          s = this.vacanciesCount;
-        }
-        for (let k = (i - 1) * 12; k < s; k++) {
-          this.vacanciesArray.push({number: i, post: this.vacanciesPosts[k]});
-        }
-      }
-
-      for (let i = 1; i <= this.count; i++) {
-        this.countArray.push(i);
-      }
-    });
+    if (!this.vacanciesService.loadingVacancies) {
+      setTimeout(() => {
+        this.getDataFromService();
+      }, 250);
+    } else {
+      this.getDataFromService();
+    }
   }
 
   refreshVacancies() {
-    this.loadingVacancies = false;
+    this.vacanciesService.loadingVacancies = false;
     this.getAllVacancies();
     setTimeout(() => {
-      this.loadingVacancies = true;
+      this.getDataFromService();
+      this.vacanciesService.loadingVacancies = true;
     }, 2000);
   }
 
   redirect(id) {
     this.router.navigate(['/full-vacancy/', id]);
+  }
+
+  // getAllVacancies() {
+  //   this.vacanciesService.getAllVacancies().subscribe(data => {
+  //     if (this.vacanciesService.vacanciesPosts !== data.vacancies) {
+  //       this.vacanciesService.loadingVacancies = false;
+  //       this.vacanciesService.vacanciesArray = [];
+  //       this.vacanciesService.countArray = [];
+  //       this.vacanciesService.vacanciesPosts = data.vacancies;
+  //       const vacanciesCount = this.vacanciesService.vacanciesPosts.length;
+  //       let count;
+  //       count = Math.ceil(vacanciesCount / 12);
+  //       let s;
+  //       for (let i = 1; i <= count; i++) {
+  //         if (i === 1 && vacanciesCount === 13) {
+  //           s = vacanciesCount - 1;
+  //         } else {
+  //           s = vacanciesCount;
+  //         }
+  //         for (let k = (i - 1) * 12; k < s; k++) {
+  //           this.vacanciesService.vacanciesArray.push({ number: i, post: this.vacanciesService.vacanciesPosts[k] });
+  //         }
+  //       }
+  //       for (let i = 1; i <= count; i++) {
+  //         this.vacanciesService.countArray.push(i);
+  //       }
+  //       this.vacanciesService.loadingVacancies = true;
+  //     } else {
+  //       this.vacanciesService.loadingVacancies = true;
+  //     }
+  //   });
+  // }
+
+  getAllVacancies() {
+    this.vacanciesService.getAllVacancies();
+  }
+
+  getDataFromService() {
+    this.vacanciesPosts = this.vacanciesService.vacanciesPosts;
+    this.vacanciesArray = this.vacanciesService.vacanciesArray;
+    this.countArray = this.vacanciesService.countArray;
+    this.loadingVacancies = this.vacanciesService.loadingVacancies;
   }
 
 }

@@ -68,6 +68,7 @@ export class EditArticleComponent implements OnInit {
   updateArticleSubmit() {
     this.processing = true;
     this.article.title = this.form.get('title').value;
+    this.imageBodyCorrector();
     this.disableFormArticleForm();
     this.articlesService.editArticle(this.article).subscribe(data => {
       if (!data.success) {
@@ -99,6 +100,15 @@ export class EditArticleComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  imageBodyCorrector() {
+    let str = '';
+    if (this.article.body.indexOf('<img style="') || this.article.body.indexOf('<img style="max') <= 0) {
+      str = this.article.body.substring( 0, this.article.body.indexOf('<img style="') + 12) +
+      'max-width: 100%; height: auto;' + this.article.body.substring(this.article.body.indexOf('<img style="') + 12);
+      this.article.body = str;
+    }
   }
 
 }

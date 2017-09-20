@@ -18,7 +18,6 @@ export class FullNewsComponent implements OnInit {
   news;
   loading = true;
 
-
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
@@ -46,14 +45,15 @@ export class FullNewsComponent implements OnInit {
   getSingleNewsItem() {
     this.currentUrl = this.activatedRoute.snapshot.params;
     this.newsService.getSingleNews(this.currentUrl.id).subscribe(data => {
-      if (!data.success) {
-        this.message = data.message;
-        this.messageClass = 'alert alert-danger';
-      } else {
+      if (data.success && this.news !== data.news) {
+        this.news = [];
         this.news = data.news;
         this.loading = false;
         this.message = data.message;
         this.messageClass = 'alert alert-success';
+      } else {
+        this.message = data.message;
+        this.messageClass = 'alert alert-danger';
       }
     });
   }

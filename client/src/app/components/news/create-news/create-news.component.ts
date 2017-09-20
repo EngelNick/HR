@@ -85,7 +85,7 @@ export class CreateNewsComponent implements OnInit {
     this.processing = true;
     this.disableFormNewsForm();
 
-    const news = {
+    this.news = {
       title: this.form.get('title').value,
       url: this.form.get('url').value,
       hat: this.form.get('hat').value,
@@ -93,7 +93,9 @@ export class CreateNewsComponent implements OnInit {
       createdBy: this.username
     }
 
-    this.newsService.newNews(news).subscribe(data => {
+    this.imageBodyCorrector();
+
+    this.newsService.newNews(this.news).subscribe(data => {
       if (!data.success) {
         this.messageClass = 'alert alert-danger';
         this.message = data.message;
@@ -102,6 +104,7 @@ export class CreateNewsComponent implements OnInit {
       } else {
         this.messageClass = 'alert alert-success';
         this.message = data.message;
+        this.newsService.getAllNews();
         setTimeout(() => {
           this.processing = false;
           this.message = '';
@@ -115,6 +118,15 @@ export class CreateNewsComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  imageBodyCorrector() {
+    let str = '';
+    if (this.news.body.indexOf('<img style="') || this.news.body.indexOf('<img style="max') <= 0) {
+      str = this.news.body.substring( 0, this.news.body.indexOf('<img style="') + 12) +
+      'max-width: 100%; height: auto;' + this.news.body.substring(this.news.body.indexOf('<img style="') + 12);
+      this.news.body = str;
+    }
   }
 
 }

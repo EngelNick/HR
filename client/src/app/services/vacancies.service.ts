@@ -6,6 +6,10 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 export class VacanciesService {
   options;
   domain = this.authService.domain;
+  vacanciesPosts;
+  loadingVacancies;
+  vacanciesArray;
+  countArray;
 
   constructor(
     private authService: AuthService,
@@ -29,7 +33,34 @@ export class VacanciesService {
 
   getAllVacancies() {
     this.createAuthenticationHeaders();
-    return this.http.get(this.domain + '/vacancies/allvacancies/', this.options).map(res => res.json());
+    this.http.get(this.domain + '/vacancies/allvacancies/', this.options).map(res => res.json()).subscribe(data =>{
+      if (this.vacanciesPosts !== data.vacancies) {
+        this.loadingVacancies = false;
+        this.vacanciesArray = [];
+        this.countArray = [];
+        this.vacanciesPosts = data.vacancies;
+        const vacanciesCount = this.vacanciesPosts.length;
+        let count;
+        count = Math.ceil(vacanciesCount / 12);
+        let s;
+        for (let i = 1; i <= count; i++) {
+          if (i === 1 && vacanciesCount === 13) {
+            s = vacanciesCount - 1;
+          } else {
+            s = vacanciesCount;
+          }
+          for (let k = (i - 1) * 12; k < s; k++) {
+            this.vacanciesArray.push({ number: i, post: this.vacanciesPosts[k] });
+          }
+        }
+        for (let i = 1; i <= count; i++) {
+          this.countArray.push(i);
+        }
+        this.loadingVacancies = true;
+      } else {
+        this.loadingVacancies = true;
+      }
+    })
   }
 
   getSingleVacancy(id) {

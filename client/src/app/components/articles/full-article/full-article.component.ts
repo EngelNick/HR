@@ -45,14 +45,15 @@ export class FullArticleComponent implements OnInit {
   getSingleArticleItem() {
     this.currentUrl = this.activatedRoute.snapshot.params;
     this.articlesService.getSingleArticle(this.currentUrl.id).subscribe(data => {
-      if (!data.success) {
-        this.message = data.message;
-        this.messageClass = 'alert alert-danger';
-      } else {
+      if (data.success && this.article !== data.article) {
+        this.article = [];
         this.article = data.article;
         this.loading = false;
         this.message = data.message;
         this.messageClass = 'alert alert-success';
+      } else {
+        this.message = data.message;
+        this.messageClass = 'alert alert-danger';
       }
     });
   }

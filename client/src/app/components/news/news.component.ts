@@ -11,14 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 export class NewsComponent implements OnInit {
 
   admin = false;
-  loadingNews = false;
-  username;
+  loadingNews;
   newsPosts;
-  newsArray = [];
-  newsCount;
-  count;
-  countArray = [];
+  newsArray;
+  countArray;
   currentId;
+  // count;
+  // username;
+  // newsCount;
 
   constructor(
     private authService: AuthService,
@@ -28,17 +28,21 @@ export class NewsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      if (profile.success) {
-        this.username = profile.user.username;
-      }
-    });
+    // if (this.username === undefined) {
+    //   this.authService.getProfile().subscribe(profile => {
+    //     if (profile.success) {
+    //       this.username = profile.user.username;
+    //     }
+    //   });
+    // }
 
-    this.authService.isAdmin().subscribe(data => {
-      if (data.success) {
-        this.admin = data.user.admin;
-      }
-    });
+    if (!this.admin) {
+      this.authService.isAdmin().subscribe(data => {
+        if (data.success) {
+          this.admin = data.user.admin;
+        }
+      });
+    }
 
     this.activatedRoute.params.subscribe(
       params => {
@@ -48,17 +52,22 @@ export class NewsComponent implements OnInit {
           this.currentId = +params['id'];
         }
       });
-
-
-    this.getAllNews();
-    this.loadingNews = true;
+      this.getAllNews();
+      if (!this.newsService.loadingNews) {
+        setTimeout(() => {
+          this.getDataFromService();
+        }, 300);
+      } else {
+        this.getDataFromService();
+      }
   }
 
   refreshNews() {
-    this.loadingNews = false;
+    this.newsService.loadingNews = false;
     this.getAllNews();
     setTimeout(() => {
-      this.loadingNews = true;
+      this.getDataFromService();
+      this.newsService.loadingNews = true;
     }, 2000);
   }
 
@@ -66,27 +75,77 @@ export class NewsComponent implements OnInit {
 
   // }
 
+  // 1getAllNews() {
+  //   this.newsService.getAllNews().subscribe(data => {
+  //     if (this.newsPosts !== data.news) {
+  //       this.loadingNews = false;
+  //       this.newsArray = [];
+  //       this.countArray = [];
+  //       this.newsPosts = data.news;
+  //       this.newsCount = this.newsPosts.length;
+  //       this.count = Math.ceil(this.newsCount / 12);
+  //       let s;
+  //       for (let i = 1; i <= this.count; i++) {
+  //         if (i === 1 && this.newsCount === 13) {
+  //           s = this.newsCount - 1
+  //         } else {
+  //           s = this.newsCount;
+  //         }
+  //         for (let k = (i - 1) * 12; k < s; k++) {
+  //           this.newsArray.push({ number: i, post: this.newsPosts[k] });
+  //         }
+  //       }
+  //       for (let i = 1; i <= this.count; i++) {
+  //         this.countArray.push(i);
+  //       }
+  //       this.loadingNews = true;
+  //     } else {
+  //       this.loadingNews = true;
+  //     }
+  //   });
+  // }
+
+  // 2getAllNews() {
+  //   this.newsService.getAllNews().subscribe(data => {
+  //     if (this.newsService.newsPosts !== data.news) {
+  //       this.newsService.loadingNews = false;
+  //       this.newsService.newsArray = [];
+  //       this.newsService.countArray = [];
+  //       this.newsService.newsPosts = data.news;
+  //       const newsCount = this.newsService.newsPosts.length;
+  //       let count;
+  //       count = Math.ceil(newsCount / 12);
+  //       let s;
+  //       for (let i = 1; i <= count; i++) {
+  //         if (i === 1 && newsCount === 13) {
+  //           s = newsCount - 1
+  //         } else {
+  //           s = newsCount;
+  //         }
+  //         for (let k = (i - 1) * 12; k < s; k++) {
+  //           this.newsService.newsArray.push({ number: i, post: this.newsService.newsPosts[k] });
+  //         }
+  //       }
+  //       for (let i = 1; i <= count; i++) {
+  //         this.newsService.countArray.push(i);
+  //       }
+  //       this.newsService.loadingNews = true;
+  //     } else {
+  //       this.newsService.loadingNews = true;
+  //     }
+  //   });
+  // }
+
   getAllNews() {
-    this.newsArray = [];
-    this.countArray = [];
-    this.newsService.getAllNews().subscribe(data => {
-      this.newsPosts = data.news;
-      this.newsCount = this.newsPosts.length;
-      this.count = Math.ceil(this.newsCount / 12);
-      let s;
-      for (let i = 1; i <= this.count; i++) {
-        if (i === 1 && this.newsCount === 13) {
-          s = this.newsCount - 1
-        } else {
-          s = this.newsCount;
-        }
-        for (let k = (i - 1) * 12; k < s; k++) {
-          this.newsArray.push({ number: i, post: this.newsPosts[k] });
-        }
-      }
-      for (let i = 1; i <= this.count; i++) {
-        this.countArray.push(i);
-      }
-    });
+    this.newsService.getAllNews();
   }
+
+
+  getDataFromService() {
+    this.newsPosts = this.newsService.newsPosts;
+    this.newsArray = this.newsService.newsArray;
+    this.countArray = this.newsService.countArray;
+    this.loadingNews = this.newsService.loadingNews;
+  }
+
 }

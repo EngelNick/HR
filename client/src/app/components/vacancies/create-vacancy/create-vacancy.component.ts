@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "app/services/auth.service";
-import { VacanciesService } from "app/services/vacancies.service";
+import { VacanciesService } from 'app/services/vacancies.service';
 
 @Component({
   selector: 'app-create-vacancy',
@@ -18,7 +18,7 @@ export class CreateVacancyComponent implements OnInit {
   processing = false;
   vacancy;
   username;
-  
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -33,7 +33,7 @@ export class CreateVacancyComponent implements OnInit {
     this.authService.isAdmin().subscribe(data => {
       if (!data.user.admin) {
         this.message = 'Извините, но у Вас не права доступа на администрирования сайта';
-        this.messageClass = "alert alert-danger";
+        this.messageClass = 'alert alert-danger';
         this.router.navigate(['/vacancies']);
       } else {
         this.authService.getProfile().subscribe(profile => {
@@ -86,34 +86,35 @@ export class CreateVacancyComponent implements OnInit {
     this.processing = true;
     this.disableFormVacancyForm();
 
-     const vacancy = {
-       title: this.form.get('title').value,
-       url: this.form.get('url').value,
-       hat: this.form.get('hat').value,
-       hot: this.form.get('hot').value,
-       body: this.form.body,
-       createdBy: this.username
-     }
-    
+    const vacancy = {
+      title: this.form.get('title').value,
+      url: this.form.get('url').value,
+      hat: this.form.get('hat').value,
+      hot: this.form.get('hot').value,
+      body: this.form.body,
+      createdBy: this.username
+    }
+
     this.vacanciesService.newVacancy(vacancy).subscribe(data => {
-      if(!data.success) {
-        this.messageClass = "alert alert-danger";
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger';
         this.message = data.message;
         this.processing = false;
         this.enableFormVacancyForm();
       } else {
-        this.messageClass = "alert alert-success";
+        this.messageClass = 'alert alert-success';
         this.message = data.message;
+        this.vacanciesService.getAllVacancies();
         setTimeout(() => {
           this.processing = false;
-          this.message = "";
+          this.message = '';
           this.form.reset();
           this.router.navigate(['/news']);
           this.enableFormVacancyForm();
         }, 2000);
       }
     });
- }
+  }
 
   goBack() {
     this.location.back();

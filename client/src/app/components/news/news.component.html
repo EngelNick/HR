@@ -31,7 +31,7 @@
             </a>
       </li>
       <li *ngFor="let index of countArray" class="page-item"><a class="page-link" [routerLink]="['/news/', index]">{{index}}</a></li>
-      <li class="page-item" *ngIf="currentId+1 <= count">
+      <li class="page-item" *ngIf="currentId+1 <= countArray">
         <a class="page-link" [routerLink]="['/news/', currentId+1]" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>

@@ -1,7 +1,7 @@
-<div class="col-md-10 col-md-push-1">
+<div class="col-xs-12 col-xs-push-0 col-md-10 col-md-push-1">
   <h3 class="text-muted" id="head">Вакансии</h3>
 
-  <div class="col-md-12">
+  <div class="col-md-12 no-padding">
     <div *ngIf="admin">
       <a [routerLink]="['/create-vacancy']"><button type="button" name="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</button></a>
       <button [disabled]="!loadingVacancies" type="button" name="button" class="btn btn-warning" (click)="refreshVacancies()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Обновить</button>
@@ -27,7 +27,7 @@
               </a>
           </li>
           <li *ngFor="let index of countArray" class="page-item"><a class="page-link" [routerLink]="['/vacancies/', index]">{{index}}</a></li>
-          <li class="page-item" *ngIf="currentId+1 <= count">
+          <li class="page-item" *ngIf="currentId+1 <= vacanciesCount">
             <a class="page-link" [routerLink]="['/news/', currentId+1]" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Next</span>
