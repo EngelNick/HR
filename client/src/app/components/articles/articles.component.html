@@ -42,7 +42,7 @@
         <div *ngFor="let one_news of news; let i = index" [attr.data-index]="i">
           <div *ngIf="i==0" id="sidebar-first" (click)="redirect(one_news._id)">
             <div>
-              <a [routerLink]="['/full-news/', one_news._id]"><img class="sidebar-img-first" src="{{one_news.url}}" width="200" height="200"><img></a>
+              <a [routerLink]="['/full-news/', one_news._id]"><img class="sidebar-img-first" src="{{one_news.url}}" onError="this.src='../../../assets/images/placeholder.png';" width="200" height="200"><img></a>
             </div>
             <div id="sidebar-first-text">
               <h4>{{one_news.title}}</h4>
@@ -51,7 +51,7 @@
           <div *ngIf="i>0" id="sidebar-else" class="col-md-12 no-padding">
             <div id="sidebar-else-main" (click)="redirect(one_news._id)">
               <div id="sidebar-else-left" class="col-md-4">
-                  <a [routerLink]="['/full-news/', one_news._id]"><img class="sidebar-img" src="{{one_news.url}}" width="50" height="50"><img></a>
+                  <a [routerLink]="['/full-news/', one_news._id]"><img class="sidebar-img" src="{{one_news.url}}" onError="this.src='../../../assets/images/placeholder.png';" width="50" height="50"><img></a>
               </div>
               <div id="sidebar-else-right" class="col-md-8">
                   <h5>{{one_news.title}}</h5>

@@ -104,7 +104,7 @@ export class EditArticleComponent implements OnInit {
 
   imageBodyCorrector() {
     let str = '';
-    if (this.article.body.indexOf('<img style="') || this.article.body.indexOf('<img style="max') <= 0) {
+    if (this.article.body.indexOf('<img style="') >= 0 && this.article.body.indexOf('<img style="max') <= 0) {
       str = this.article.body.substring( 0, this.article.body.indexOf('<img style="') + 12) +
       'max-width: 100%; height: auto;' + this.article.body.substring(this.article.body.indexOf('<img style="') + 12);
       this.article.body = str;

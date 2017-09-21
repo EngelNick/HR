@@ -34,6 +34,7 @@ export class ArticlesService {
   getAllArticles() {
     this.http.get(this.domain + '/articles/allArticles/').map(res => res.json()).subscribe(data => {
       if (this.articlesPosts !== data.articles) {
+        this.loadingArticles = false;
         this.articlesArray = [];
         this.countArray = [];
         this.articlesPosts = data.articles;

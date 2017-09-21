@@ -68,6 +68,7 @@ export class NewsService {
   getTwelveNews(id) {
     this.http.get(this.domain + '/savenews/getTwelveNews/' + id).map(res => res.json()).subscribe(data =>{
       if (this.news !== data.news) {
+        this.loadingTwelveNews = false;
         this.news = data.news;
         this.loadingTwelveNews = true
       } else {

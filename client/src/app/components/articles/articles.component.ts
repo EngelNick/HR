@@ -68,7 +68,12 @@ export class ArticlesComponent implements OnInit {
   }
 
   check() {
-    return !this.articlesArray && !this.news;
+    if (!this.articlesArray) {
+      return true;
+    } else if (!this.news) {
+      return true;
+    }
+    return false;
   }
 
   // getAllArticles() {
