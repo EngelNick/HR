@@ -4,6 +4,7 @@ import { NewsService } from 'app/services/news.service';
 import { ArticlesService } from 'app/services/articles.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval } from 'rxjs/observable/interval';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-articles',

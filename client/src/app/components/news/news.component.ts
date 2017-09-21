@@ -3,6 +3,7 @@ import { AuthService } from 'app/services/auth.service';
 import { NewsService } from 'app/services/news.service';
 import { ActivatedRoute } from '@angular/router';
 import { interval } from 'rxjs/observable/interval';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-news',

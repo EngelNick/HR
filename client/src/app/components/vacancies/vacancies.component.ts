@@ -3,6 +3,7 @@ import { AuthService } from 'app/services/auth.service';
 import { VacanciesService } from 'app/services/vacancies.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval } from 'rxjs/observable/interval';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-vacancies',
@@ -16,11 +17,11 @@ export class VacanciesComponent implements OnInit {
   loadingVacancies;
   vacanciesPosts;
   vacanciesArray;
-  vacanciesCount;
   countArray;
   currentId;
   // username;
   // count;
+  //  vacanciesCount;
 
   constructor(
     private vacanciesService: VacanciesService,
