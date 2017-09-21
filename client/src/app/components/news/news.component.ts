@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { NewsService } from 'app/services/news.service';
 import { ActivatedRoute } from '@angular/router';
+import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-news',
@@ -54,12 +55,18 @@ export class NewsComponent implements OnInit {
       });
       this.getAllNews();
       if (!this.newsService.loadingNews) {
-        setTimeout(() => {
+        interval(25)
+        .takeWhile(() => this.check())
+        .subscribe(() => {
           this.getDataFromService();
-        }, 300);
+        })
       } else {
         this.getDataFromService();
       }
+  }
+
+  check() {
+    return !this.newsArray;
   }
 
   refreshNews() {

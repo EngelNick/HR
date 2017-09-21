@@ -32,8 +32,7 @@ export class VacanciesService {
   }
 
   getAllVacancies() {
-    this.createAuthenticationHeaders();
-    this.http.get(this.domain + '/vacancies/allvacancies/', this.options).map(res => res.json()).subscribe(data =>{
+    this.http.get(this.domain + '/vacancies/allvacancies/').map(res => res.json()).subscribe(data => {
       if (this.vacanciesPosts !== data.vacancies) {
         this.loadingVacancies = false;
         this.vacanciesArray = [];
@@ -64,8 +63,7 @@ export class VacanciesService {
   }
 
   getSingleVacancy(id) {
-    this.createAuthenticationHeaders();
-    return this.http.get(this.domain + '/vacancies/singleVacancy/' + id, this.options).map(res => res.json());
+    return this.http.get(this.domain + '/vacancies/singleVacancy/' + id).map(res => res.json());
   }
 
   editVacancy(vacancy) {

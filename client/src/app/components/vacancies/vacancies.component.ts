@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { VacanciesService } from 'app/services/vacancies.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-vacancies',
@@ -55,12 +56,19 @@ export class VacanciesComponent implements OnInit {
 
     this.getAllVacancies();
     if (!this.vacanciesService.loadingVacancies) {
-      setTimeout(() => {
-        this.getDataFromService();
-      }, 250);
+      interval(25)
+        .takeWhile(() => this.check())
+        .subscribe(() => {
+          this.getDataFromService();
+        })
     } else {
       this.getDataFromService();
     }
+
+  }
+
+  check() {
+    return !this.vacanciesArray;
   }
 
   refreshVacancies() {

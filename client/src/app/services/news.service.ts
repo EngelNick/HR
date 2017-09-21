@@ -39,8 +39,7 @@ export class NewsService {
   }
 
   getAllNews() {
-    this.createAuthenticationHeaders();
-    this.http.get(this.domain + '/savenews/allnews/', this.options).map(res => res.json()).subscribe(data => {
+    this.http.get(this.domain + '/savenews/allnews/').map(res => res.json()).subscribe(data => {
       if (this.newsPosts !== data.news) {
         this.loadingNews = false;
         this.newsArray = [];
@@ -71,8 +70,7 @@ export class NewsService {
   }
 
   getTwelveNews(id) {
-    this.createAuthenticationHeaders();
-    this.http.get(this.domain + '/savenews/getTwelveNews/' + id, this.options).map(res => res.json()).subscribe(data =>{
+    this.http.get(this.domain + '/savenews/getTwelveNews/' + id).map(res => res.json()).subscribe(data =>{
       if (this.news !== data.news) {
         this.news = data.news;
         this.loadingTwelveNews = true
@@ -83,8 +81,7 @@ export class NewsService {
   }
 
   getSingleNews(id) {
-    this.createAuthenticationHeaders();
-    return this.http.get(this.domain + '/savenews/singleNews/' + id, this.options).map(res => res.json());
+    return this.http.get(this.domain + '/savenews/singleNews/' + id).map(res => res.json());
   }
 
   editNews(news) {

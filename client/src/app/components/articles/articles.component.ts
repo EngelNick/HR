@@ -3,6 +3,7 @@ import { AuthService } from 'app/services/auth.service';
 import { NewsService } from 'app/services/news.service';
 import { ArticlesService } from 'app/services/articles.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-articles',
@@ -49,17 +50,24 @@ export class ArticlesComponent implements OnInit {
           this.currentId = +params['id'];
         }
       });
+
     this.getAllArticles();
     this.getTwelveNews();
     if (!this.articlesService.loadingArticles || !this.newsService.loadingTwelveNews) {
-      setTimeout(() => {
-        this.getDataFromService();
-        this.getDataFromNewsService()
-      }, 300);
+      interval(25)
+        .takeWhile(() => this.check())
+        .subscribe(() => {
+          this.getDataFromService();
+          this.getDataFromNewsService();
+        })
     } else {
       this.getDataFromService();
-      this.getDataFromNewsService()
+      this.getDataFromNewsService();
     }
+  }
+
+  check() {
+    return !this.articlesArray && !this.news;
   }
 
   // getAllArticles() {

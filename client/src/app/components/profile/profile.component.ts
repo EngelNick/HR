@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
   username;
   email;
   admin;
+  loadingProfile;
 
   constructor(
     private authService: AuthService
@@ -19,13 +20,22 @@ export class ProfileComponent implements OnInit {
   }
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
-      if (this.username !== profile.user.username && this.admin !== profile.user.admin) {
-      this.username = profile.user.username;
-      this.email = profile.user.email;
-      this.admin = profile.user.admin ? 'Вы имеете права администратора' : 'Вы не администратор';
+      if (!this.authService.loadingProfile) {
+      this.authService.username = profile.user.username;
+      this.authService.email = profile.user.email;
+      this.authService.admin = profile.user.admin ? 'Вы имеете права администратора' : 'Вы не администратор';
+      this.getDataFromAuthService();
     } else {
+      this.getDataFromAuthService();
     }
     });
+  }
+
+  getDataFromAuthService() {
+    this.username = this.authService.username;
+    this.email = this.authService.email;
+    this.admin = this.authService.admin;
+    this.loadingProfile = true;
   }
 
 }

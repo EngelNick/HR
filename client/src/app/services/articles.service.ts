@@ -32,8 +32,7 @@ export class ArticlesService {
   }
 
   getAllArticles() {
-    this.createAuthenticationHeaders();
-    this.http.get(this.domain + '/articles/allArticles/', this.options).map(res => res.json()).subscribe(data => {
+    this.http.get(this.domain + '/articles/allArticles/').map(res => res.json()).subscribe(data => {
       if (this.articlesPosts !== data.articles) {
         this.articlesArray = [];
         this.countArray = [];
@@ -63,8 +62,7 @@ export class ArticlesService {
   }
 
   getSingleArticle(id) {
-    this.createAuthenticationHeaders();
-    return this.http.get(this.domain + '/articles/singleArticle/' + id, this.options).map(res => res.json());
+    return this.http.get(this.domain + '/articles/singleArticle/' + id).map(res => res.json());
   }
 
   editArticle(article) {

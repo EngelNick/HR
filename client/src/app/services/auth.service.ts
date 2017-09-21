@@ -11,6 +11,10 @@ export class AuthService {
   authToken;
   user;
   options;
+  username;
+  email;
+  admin;
+  loadingProfile;
 
   constructor(
     private http: Http
@@ -69,19 +73,19 @@ export class AuthService {
   }
 
   isAdmin() {
-      this.createAuthenticationHeaders();
-      return this.http.get(this.domain + '/authentication/adminCheck', this.options).map(res => res.json());
-    }
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + '/authentication/adminCheck', this.options).map(res => res.json());
+  }
 
-    likeNews(id) {
-      const newsData = { id: id };
-      this.createAuthenticationHeaders();
-      return this.http.put(this.domain + '/savenews/likeNews/', newsData, this.options).map(res => res.json());
-    }
+  likeNews(id) {
+    const newsData = { id: id };
+    this.createAuthenticationHeaders();
+    return this.http.put(this.domain + '/savenews/likeNews/', newsData, this.options).map(res => res.json());
+  }
 
-    likeArticle(id) {
-      const articlesData = { id: id };
-      this.createAuthenticationHeaders();
-      return this.http.put(this.domain + '/articles/likeArticle/', articlesData, this.options).map(res => res.json());
-    }
+  likeArticle(id) {
+    const articlesData = { id: id };
+    this.createAuthenticationHeaders();
+    return this.http.put(this.domain + '/articles/likeArticle/', articlesData, this.options).map(res => res.json());
+  }
 }
