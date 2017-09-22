@@ -52,5 +52,5 @@ export const appRoutes: Routes = [
     { path: 'registration', component: RegistrationComponent, canActivate: [NotAuthGuard] },
     { path: 'lostPassword', component: LostPasswordComponent },
     { path: 'aboutsite', component: AboutSiteComponent },
-    { path: '**', component: NewsComponent },
+    { path: '**', redirectTo: 'news', pathMatch: 'full' }
 ];
