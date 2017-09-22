@@ -59,7 +59,7 @@ export class VacanciesService {
       } else {
         this.loadingVacancies = true;
       }
-    })
+    });
   }
 
   getSingleVacancy(id) {

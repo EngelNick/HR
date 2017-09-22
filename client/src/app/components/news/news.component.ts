@@ -113,37 +113,6 @@ export class NewsComponent implements OnInit {
   //   });
   // }
 
-  // 2getAllNews() {
-  //   this.newsService.getAllNews().subscribe(data => {
-  //     if (this.newsService.newsPosts !== data.news) {
-  //       this.newsService.loadingNews = false;
-  //       this.newsService.newsArray = [];
-  //       this.newsService.countArray = [];
-  //       this.newsService.newsPosts = data.news;
-  //       const newsCount = this.newsService.newsPosts.length;
-  //       let count;
-  //       count = Math.ceil(newsCount / 12);
-  //       let s;
-  //       for (let i = 1; i <= count; i++) {
-  //         if (i === 1 && newsCount === 13) {
-  //           s = newsCount - 1
-  //         } else {
-  //           s = newsCount;
-  //         }
-  //         for (let k = (i - 1) * 12; k < s; k++) {
-  //           this.newsService.newsArray.push({ number: i, post: this.newsService.newsPosts[k] });
-  //         }
-  //       }
-  //       for (let i = 1; i <= count; i++) {
-  //         this.newsService.countArray.push(i);
-  //       }
-  //       this.newsService.loadingNews = true;
-  //     } else {
-  //       this.newsService.loadingNews = true;
-  //     }
-  //   });
-  // }
-
   getAllNews() {
     this.newsService.getAllNews();
   }

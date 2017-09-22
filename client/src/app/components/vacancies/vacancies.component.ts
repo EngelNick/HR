@@ -38,15 +38,13 @@ export class VacanciesComponent implements OnInit {
     //     }
     //   });
     // }
-    if (!this.admin) {
-      this.authService.isAdmin().subscribe(data => {
-        if (data.success) {
-          this.admin = data.user.admin;
-        } else {
-          console.log('bad boy');
-        }
-      });
-    }
+    // if (!this.admin) {
+    //   this.authService.isAdmin().subscribe(data => {
+    //     if (data.success) {
+    //       this.admin = data.user.admin;
+    //     }
+    //   });
+    // }
 
     this.activatedRoute.params.subscribe(
       params => {

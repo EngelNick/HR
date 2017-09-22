@@ -40,8 +40,6 @@ export class ArticlesComponent implements OnInit {
       this.authService.isAdmin().subscribe(data => {
         if (data.success) {
           this.admin = data.user.admin;
-        } else {
-          console.log('bad boy');
         }
       });
     }
