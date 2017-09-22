@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/services/auth.service';
-import { VacanciesService } from 'app/services/vacancies.service';
+import { AuthService } from '../../services/auth.service';
+import { VacanciesService } from '../../services/vacancies.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval } from 'rxjs/observable/interval';
 import 'rxjs/add/operator/takeWhile';
@@ -38,13 +38,13 @@ export class VacanciesComponent implements OnInit {
     //     }
     //   });
     // }
-    // if (!this.admin) {
-    //   this.authService.isAdmin().subscribe(data => {
-    //     if (data.success) {
-    //       this.admin = data.user.admin;
-    //     }
-    //   });
-    // }
+    if (!this.admin) {
+      this.authService.isAdmin().subscribe(data => {
+        if (data.success) {
+          this.admin = data.user.admin;
+        }
+      });
+    }
 
     this.activatedRoute.params.subscribe(
       params => {

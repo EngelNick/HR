@@ -54,16 +54,17 @@ export class NewsComponent implements OnInit {
           this.currentId = +params['id'];
         }
       });
-      this.getAllNews();
-      if (!this.newsService.loadingNews) {
-        interval(25)
+
+    this.getAllNews();
+    if (!this.newsService.loadingNews) {
+      interval(25)
         .takeWhile(() => this.check())
         .subscribe(() => {
           this.getDataFromService();
         })
-      } else {
-        this.getDataFromService();
-      }
+    } else {
+      this.getDataFromService();
+    }
   }
 
   check() {
