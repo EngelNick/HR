@@ -148,20 +148,6 @@ module.exports = (router) => {
             }
         }
     });
-
-    router.get('/adminCheck', (req, res) => {
-        User.findOne({ _id: req.decoded.userId }).select('admin').exec((err, user) => {
-         if (err) {
-            res.json({ success: false, message: err });
-        } else {
-            if (!user) {
-                res.json({ success: false, message: 'Такого пользователя не существует' });
-            } else {
-                res.json({ success: true, user: user });
-            }
-        }
-    });
-});
     
     router.use((req, res, next) => {
         const token = req.headers['authorization'];
@@ -193,6 +179,21 @@ module.exports = (router) => {
         });
     });
 
+    router.get('/adminCheck', (req, res) => {
+            User.findOne({ _id: req.decoded.userId }).select('admin').exec((err, user) => {
+             if (err) {
+                res.json({ success: false, message: err });
+            } else {
+                if (!user) {
+                    res.json({ success: false, message: 'Такого пользователя не существует' });
+                } else {
+                    res.json({ success: true, user: user });
+                }
+            }
+        });
+    });
+
+    
     router.put('/likeNews', (req, res) => {
         if (!req.body.id) {
             res.json({ success: false, message: "_id новости не предоставлен" });
