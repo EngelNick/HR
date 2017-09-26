@@ -167,6 +167,7 @@ module.exports = (router) => {
     });
 
     router.get('/profile', (req, res) => {
+        if(req.decoded.userId) {
         User.findOne({ _id: req.decoded.userId }).select('username email admin').exec((err, user) => {
             if (err) {
                 res.json({ success: false, message: err });
@@ -178,9 +179,11 @@ module.exports = (router) => {
                 }
             }
         });
+    }
     });
 
     router.get('/adminCheck', (req, res) => {
+        if(req.decoded.userId) {
             User.findOne({ _id: req.decoded.userId }).select('admin').exec((err, user) => {
              if (err) {
                 res.json({ success: false, message: err });
@@ -192,6 +195,7 @@ module.exports = (router) => {
                 }
             }
         });
+    }
     });
 
     
