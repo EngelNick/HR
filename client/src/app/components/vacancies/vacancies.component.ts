@@ -74,40 +74,13 @@ export class VacanciesComponent implements OnInit {
     }, 2000);
   }
 
-  redirect(id) {
-    this.router.navigate(['/full-vacancy/', id]);
-  }
-
-  // getAllVacancies() {
-  //   this.vacanciesService.getAllVacancies().subscribe(data => {
-  //     if (this.vacanciesService.vacanciesPosts !== data.vacancies) {
-  //       this.vacanciesService.loadingVacancies = false;
-  //       this.vacanciesService.vacanciesArray = [];
-  //       this.vacanciesService.countArray = [];
-  //       this.vacanciesService.vacanciesPosts = data.vacancies;
-  //       const vacanciesCount = this.vacanciesService.vacanciesPosts.length;
-  //       let count;
-  //       count = Math.ceil(vacanciesCount / 12);
-  //       let s;
-  //       for (let i = 1; i <= count; i++) {
-  //         if (i === 1 && vacanciesCount === 13) {
-  //           s = vacanciesCount - 1;
-  //         } else {
-  //           s = vacanciesCount;
-  //         }
-  //         for (let k = (i - 1) * 12; k < s; k++) {
-  //           this.vacanciesService.vacanciesArray.push({ number: i, post: this.vacanciesService.vacanciesPosts[k] });
-  //         }
-  //       }
-  //       for (let i = 1; i <= count; i++) {
-  //         this.vacanciesService.countArray.push(i);
-  //       }
-  //       this.vacanciesService.loadingVacancies = true;
-  //     } else {
-  //       this.vacanciesService.loadingVacancies = true;
-  //     }
-  //   });
+  // redirect(id) {
+  //   this.router.navigate(['/full-vacancy/', id]);
   // }
+
+  redirect() {
+    this.router.navigate(['/full-vacancy/']);
+  }
 
   getAllVacancies() {
     this.vacanciesService.getAllVacancies();

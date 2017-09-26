@@ -9,7 +9,7 @@
 
     <div *ngIf="loadingVacancies" class="col-xs-12 col-md-9">
       <div id="grid">
-        <div *ngFor="let vacancy of vacanciesArray; let i = index" [attr.data-index]="i" class="col-xs-12 col-md-12" (click)="redirect(vacancy.post._id)">
+        <div *ngFor="let vacancy of vacanciesArray; let i = index" [attr.data-index]="i" class="col-xs-12 col-md-12">
           <div *ngIf="vacancy.number == currentId">
             <div id="grid-cell">
               <h3 class="featurette-heading"><a id="links" [routerLink]="['/full-vacancy/', vacancy.post._id]">{{vacancy.post.title}}</a></h3>

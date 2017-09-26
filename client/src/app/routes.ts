@@ -36,7 +36,7 @@ export const appRoutes: Routes = [
     { path: 'create-news', component: CreateNewsComponent, canActivate: [AuthGuard] },
     { path: 'delete-news/:id', component: DeleteNewsComponent, canActivate: [AuthGuard] },
     { path: 'vacancies', component: VacanciesComponent },
-    // { path: 'vacancies/:id', component: VacanciesComponent },
+    { path: 'vacancies/:id', component: VacanciesComponent },
     { path: 'full-vacancy/:id', component: FullVacancyComponent },
     { path: 'edit-vacancy/:id', component: EditVacancyComponent, canActivate: [AuthGuard] },
     { path: 'create-vacancy', component: CreateVacancyComponent, canActivate: [AuthGuard] },
