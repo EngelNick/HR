@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   isAdmin() {
-    if (this.authToken !== null || this.authToken === undefined) {
+    if (this.authToken !== null || this.authToken !== undefined) {
       this.createAuthenticationHeaders();
       return this.http.get(this.domain + '/authentication/adminCheck', this.options).map(res => res.json());
     } else {
@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   getProfile() {
-    if (this.authToken !== null || this.authToken === undefined) {
+    if (this.authToken !== null || this.authToken !== undefined) {
       this.createAuthenticationHeaders();
       return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
     } else {
