@@ -10,7 +10,7 @@ export class ArticlesService {
   loadingArticles;
   articlesPosts;
   articlesArray;
-  countArray;
+  countArrayArticles;
 
   constructor(
     private authService: AuthService,
@@ -37,7 +37,7 @@ export class ArticlesService {
       if (this.articlesPosts !== data.articles) {
         this.loadingArticles = false;
         this.articlesArray = [];
-        this.countArray = [];
+        this.countArrayArticles = [];
         this.articlesPosts = data.articles;
         const articlesCount = this.articlesPosts.length;
         let count;
@@ -54,7 +54,7 @@ export class ArticlesService {
           }
         }
         for (let i = 1; i <= count; i++) {
-          this.countArray.push(i);
+          this.countArrayArticles.push(i);
         }
         this.loadingArticles = true;
       } else {

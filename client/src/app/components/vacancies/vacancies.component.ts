@@ -19,9 +19,7 @@ export class VacanciesComponent implements OnInit {
   vacanciesArray;
   countArrayVacancies;
   currentId;
-  // username;
-  // count;
-  //  vacanciesCount;
+  username;
 
   constructor(
     private vacanciesService: VacanciesService,
@@ -31,6 +29,12 @@ export class VacanciesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.getProfile().subscribe(profile => {
+      if (profile.success) {
+        this.username = profile.user.username;
+      }
+    });
+
     if (!this.admin) {
       this.authService.isAdmin().subscribe(data => {
         if (data.success) {
