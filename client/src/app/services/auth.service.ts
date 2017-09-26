@@ -56,11 +56,6 @@ export class AuthService {
     localStorage.clear();
   }
 
-  getProfile() {
-    this.createAuthenticationHeaders();
-    return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
-  }
-
   storUserData(token, user) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -73,8 +68,21 @@ export class AuthService {
   }
 
   isAdmin() {
-    this.createAuthenticationHeaders();
-    return this.http.get(this.domain + '/authentication/adminCheck', this.options).map(res => res.json());
+    if (this.authToken !== null) {
+      this.createAuthenticationHeaders();
+      return this.http.get(this.domain + '/authentication/adminCheck', this.options).map(res => res.json());
+    } else {
+      return this.http.get(this.domain + '/authentication/admin-profile', this.options).map(res => res.json());
+    }
+  }
+
+  getProfile() {
+    if (this.authToken !== null) {
+      this.createAuthenticationHeaders();
+      return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
+    } else {
+      return this.http.get(this.domain + '/authentication/admin-profile').map(res => res.json());
+    }
   }
 
   likeNews(id) {
