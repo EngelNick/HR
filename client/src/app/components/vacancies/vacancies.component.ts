@@ -48,9 +48,9 @@ export class VacanciesComponent implements OnInit {
         }
       });
 
-    this.getAllVacancies();
+    this.vacanciesService.getAllVacancies();
     if (!this.vacanciesService.loadingVacancies) {
-      interval(25)
+      interval(100)
         .takeWhile(() => this.check())
         .subscribe(() => {
           this.getDataFromService();
@@ -67,24 +67,20 @@ export class VacanciesComponent implements OnInit {
 
   refreshVacancies() {
     this.vacanciesService.loadingVacancies = false;
-    this.getAllVacancies();
+    this.vacanciesService.getAllVacancies();
     setTimeout(() => {
       this.getDataFromService();
       this.vacanciesService.loadingVacancies = true;
     }, 2000);
   }
 
-  // redirect(id) {
-  //   this.router.navigate(['/full-vacancy/', id]);
+  redirect(id) {
+    this.router.navigate(['/full-vacancy/', id]);
+  }
+
+  // getAllVacancies() {
+  //   this.vacanciesService.getAllVacancies();
   // }
-
-  redirect() {
-    this.router.navigate(['/full-vacancy/']);
-  }
-
-  getAllVacancies() {
-    this.vacanciesService.getAllVacancies();
-  }
 
   getDataFromService() {
     this.vacanciesPosts = this.vacanciesService.vacanciesPosts;
