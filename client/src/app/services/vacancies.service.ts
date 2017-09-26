@@ -8,9 +8,9 @@ export class VacanciesService {
   options;
   domain = this.authService.domain;
   vacanciesPosts;
-  loadingVacancies;
   vacanciesArray;
-  countArray;
+  loadingVacancies;
+  countArrayVacancies;
 
   constructor(
     private authService: AuthService,
@@ -33,12 +33,11 @@ export class VacanciesService {
   }
 
   getAllVacancies() {
-    this.createAuthenticationHeaders();
-    this.http.get(this.domain + '/vacancies/allvacancies', this.options).map(res => res.json()).subscribe(data => {
+    this.http.get(this.domain + '/vacancies/allvacancies/').map(res => res.json()).subscribe(data => {
       if (this.vacanciesPosts !== data.vacancies) {
         this.loadingVacancies = false;
         this.vacanciesArray = [];
-        this.countArray = [];
+        this.countArrayVacancies = [];
         this.vacanciesPosts = data.vacancies;
         const vacanciesCount = this.vacanciesPosts.length;
         let count;
@@ -55,7 +54,7 @@ export class VacanciesService {
           }
         }
         for (let i = 1; i <= count; i++) {
-          this.countArray.push(i);
+          this.countArrayVacancies.push(i);
         }
         this.loadingVacancies = true;
       } else {

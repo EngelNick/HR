@@ -17,7 +17,7 @@ export class VacanciesComponent implements OnInit {
   loadingVacancies;
   vacanciesPosts;
   vacanciesArray;
-  countArray;
+  countArrayVacancies;
   currentId;
   // username;
   // count;
@@ -48,9 +48,9 @@ export class VacanciesComponent implements OnInit {
         }
       });
 
-    this.vacanciesService.getAllVacancies();
+    this.getAllVacancies();
     if (!this.vacanciesService.loadingVacancies) {
-      interval(100)
+      interval(25)
         .takeWhile(() => this.check())
         .subscribe(() => {
           this.getDataFromService();
@@ -67,7 +67,7 @@ export class VacanciesComponent implements OnInit {
 
   refreshVacancies() {
     this.vacanciesService.loadingVacancies = false;
-    this.vacanciesService.getAllVacancies();
+    this.getAllVacancies();
     setTimeout(() => {
       this.getDataFromService();
       this.vacanciesService.loadingVacancies = true;
@@ -78,14 +78,14 @@ export class VacanciesComponent implements OnInit {
     this.router.navigate(['/full-vacancy/', id]);
   }
 
-  // getAllVacancies() {
-  //   this.vacanciesService.getAllVacancies();
-  // }
+  getAllVacancies() {
+    this.vacanciesService.getAllVacancies();
+  }
 
   getDataFromService() {
     this.vacanciesPosts = this.vacanciesService.vacanciesPosts;
     this.vacanciesArray = this.vacanciesService.vacanciesArray;
-    this.countArray = this.vacanciesService.countArray;
+    this.countArrayVacancies = this.vacanciesService.countArrayVacancies;
     this.loadingVacancies = this.vacanciesService.loadingVacancies;
   }
 
