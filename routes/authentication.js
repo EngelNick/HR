@@ -149,21 +149,20 @@ module.exports = (router) => {
         }
     });
     
-    // router.use((req, res, next) => {
-        router.use((req, res) => {
+    router.use((req, res, next) => {
         const token = req.headers['authorization'];
-        if (!token) {
-            res.json({ success: false, message: 'Токен не предоставлен' });
-        } else {
+        // if (!token) {
+        //     res.json({ success: false, message: 'Токен не предоставлен' });
+        // } else {
             jwt.verify(token, config.secret, (err, decoded) => {
                 if (err) {
                     res.json({ success: false, message: 'Некорректный токен ' + err });
                 } else {
                     req.decoded = decoded;
-                    // next();
+                    next();
                 }
             });
-        }
+        // }
     });
 
     router.get('/profile', (req, res) => {
