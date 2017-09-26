@@ -1,8 +1,9 @@
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
-const config = require('../config/database');
 const News = require('../models/news');
 const Article = require('../models/article');
+const Vacancy = require('../models/vacancy');
+const jwt = require('jsonwebtoken');
+const config = require('../config/database');
 
 const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
