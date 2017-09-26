@@ -1,6 +1,6 @@
 const Vacancy = require('../models/vacancy');
-const jwt = require('jsonwebtoken');
-const config = require('../config/database');
+// const jwt = require('jsonwebtoken');
+// const config = require('../config/database');
 
 module.exports = (router) => {
 

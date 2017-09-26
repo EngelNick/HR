@@ -1,6 +1,6 @@
 const News = require('../models/news');
-const jwt = require('jsonwebtoken');
-const config = require('../config/database');
+// const jwt = require('jsonwebtoken');
+// const config = require('../config/database');
 
 module.exports = (router) => {
 
