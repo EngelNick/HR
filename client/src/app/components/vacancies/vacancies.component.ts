@@ -31,33 +31,33 @@ export class VacanciesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // if (!this.admin) {
-    //   this.authService.isAdmin().subscribe(data => {
-    //     if (data.success) {
-    //       this.admin = data.user.admin;
-    //     }
-    //   });
-    // }
+    if (!this.admin) {
+      this.authService.isAdmin().subscribe(data => {
+        if (data.success) {
+          this.admin = data.user.admin;
+        }
+      });
+    }
 
-    // this.activatedRoute.params.subscribe(
-    //   params => {
-    //     if (isNaN(params['id'])) {
-    //       this.currentId = 1;
-    //     } else {
-    //       this.currentId = +params['id'];
-    //     }
-    //   });
+    this.activatedRoute.params.subscribe(
+      params => {
+        if (isNaN(params['id'])) {
+          this.currentId = 1;
+        } else {
+          this.currentId = +params['id'];
+        }
+      });
 
-    // this.getAllVacancies();
-    // if (!this.vacanciesService.loadingVacancies) {
-    //   interval(25)
-    //     .takeWhile(() => this.check())
-    //     .subscribe(() => {
-    //       this.getDataFromService();
-    //     })
-    // } else {
-    //   this.getDataFromService();
-    // }
+    this.getAllVacancies();
+    if (!this.vacanciesService.loadingVacancies) {
+      interval(25)
+        .takeWhile(() => this.check())
+        .subscribe(() => {
+          this.getDataFromService();
+        })
+    } else {
+      this.getDataFromService();
+    }
 
   }
 

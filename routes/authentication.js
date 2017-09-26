@@ -38,7 +38,7 @@ module.exports = (router) => {
                     user.save((err) => {
                         if (err) {
                             if (err.code === 11000) {
-                                res.json({ success: false, message: "Пользовательно с таким Именем или почтой уже существует" });
+                                res.json({ success: false, message: "Пользователь с таким Именем или почтой уже существует" });
                             } else {
                                 if (err.errors) {
                                     if (err.errors.email) {
