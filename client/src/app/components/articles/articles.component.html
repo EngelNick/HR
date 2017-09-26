@@ -1,13 +1,13 @@
-<div class="col-md-10 col-md-push-1">
+<div class="col-md-10 col-md-push-1 col-xs-12">
   <h3 class="text-muted" id="head">Статьи</h3>
 
-  <div class="col-md-12">
+  <div class="col-md-12 no-padding">
     <div *ngIf="admin">
       <a [routerLink]="['/create-article']"><button type="button" name="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</button></a>
       <button [disabled]="!loadingArticles" type="button" name="button" class="btn btn-warning" (click)="refreshArticles()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Обновить</button>
     </div>
 
-    <div *ngIf="loadingArticles" class="col-md-9">
+    <div *ngIf="loadingArticles" class="col-md-9 no-padding">
       <div id="grid">
         <div *ngFor="let article of articlesArray; let i = index" [attr.data-index]="i" class="col-xs-12 col-md-12">
           <div *ngIf="article.number == currentId">
