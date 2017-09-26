@@ -4,10 +4,10 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const path = require('path');
-const authentication = require('./routes/authentication')(router);
 const savenews = require('./routes/savenews')(router);
 const vacancies = require('./routes/vacancies')(router);
 const articles = require('./routes/articles')(router);
+const authentication = require('./routes/authentication')(router);
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const port = process.env.PORT || 8080;
@@ -28,10 +28,10 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
+app.use('/authentication', authentication );
 app.use('/savenews', savenews );
 app.use('/vacancies', vacancies );
 app.use('/articles', articles );
-app.use('/authentication', authentication );
 
 
 // app.get('*', (req, res) => {
