@@ -13,102 +13,102 @@ import 'rxjs/add/operator/takeWhile';
 })
 export class ArticlesComponent implements OnInit {
 
-  // admin = false;
-  // loadingArticles;
-  // articlesPosts;
-  // articlesArray;
-  // countArrayArticles;
-  // currentId;
-  // news;
-  // loadingTwelveNews;
-  // // articlesCount;
-  // // count;
-  // // username;
-  // // message;
-  // // messageClass;
+  admin = false;
+  loadingArticles;
+  articlesPosts;
+  articlesArray;
+  countArrayArticles;
+  currentId;
+  news;
+  loadingTwelveNews;
+  // articlesCount;
+  // count;
+  // username;
+  // message;
+  // messageClass;
 
-  // constructor(
-  //   private articlesService: ArticlesService,
-  //   private authService: AuthService,
-  //   private activatedRoute: ActivatedRoute,
-  //   private router: Router,
-  //   private newsService: NewsService
-  // ) { }
+  constructor(
+    private articlesService: ArticlesService,
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private newsService: NewsService
+  ) { }
 
   ngOnInit() {
-    // if (!this.admin) {
-    //   this.authService.isAdmin().subscribe(data => {
-    //     if (data.success) {
-    //       this.admin = data.user.admin;
-    //     }
-    //   });
-    // }
-    // this.activatedRoute.params.subscribe(
-    //   params => {
-    //     if (isNaN(params['id'])) {
-    //       this.currentId = 1;
-    //     } else {
-    //       this.currentId = +params['id'];
-    //     }
-      // });
+    if (!this.admin) {
+      this.authService.isAdmin().subscribe(data => {
+        if (data.success) {
+          this.admin = data.user.admin;
+        }
+      });
+    }
+    this.activatedRoute.params.subscribe(
+      params => {
+        if (isNaN(params['id'])) {
+          this.currentId = 1;
+        } else {
+          this.currentId = +params['id'];
+        }
+      });
 
-  //   this.getAllArticles();
-  //   this.getTwelveNews();
-  //   if (!this.articlesService.loadingArticles || !this.newsService.loadingTwelveNews) {
-  //     interval(25)
-  //       .takeWhile(() => this.check())
-  //       .subscribe(() => {
-  //         this.getDataFromService();
-  //         this.getDataFromNewsService();
-  //       })
-  //   } else {
-  //     this.getDataFromService();
-  //     this.getDataFromNewsService();
-  //   }
+    this.getAllArticles();
+    this.getTwelveNews();
+    if (!this.articlesService.loadingArticles || !this.newsService.loadingTwelveNews) {
+      interval(25)
+        .takeWhile(() => this.check())
+        .subscribe(() => {
+          this.getDataFromService();
+          this.getDataFromNewsService();
+        })
+    } else {
+      this.getDataFromService();
+      this.getDataFromNewsService();
+    }
   }
 
-  // check() {
-  //   if (!this.articlesArray) {
-  //     return true;
-  //   } else if (!this.news) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  check() {
+    if (!this.articlesArray) {
+      return true;
+    } else if (!this.news) {
+      return true;
+    }
+    return false;
+  }
 
-  // getAllArticles() {
-  //   this.articlesService.getAllArticles();
-  // }
+  getAllArticles() {
+    this.articlesService.getAllArticles();
+  }
 
-  // getDataFromService() {
-  //   this.articlesPosts = this.articlesService.articlesPosts;
-  //   this.articlesArray = this.articlesService.articlesArray;
-  //   this.countArrayArticles = this.articlesService.countArrayArticles;
-  //   this.loadingArticles = this.articlesService.loadingArticles;
-  // }
+  getDataFromService() {
+    this.articlesPosts = this.articlesService.articlesPosts;
+    this.articlesArray = this.articlesService.articlesArray;
+    this.countArrayArticles = this.articlesService.countArrayArticles;
+    this.loadingArticles = this.articlesService.loadingArticles;
+  }
 
-  // getDataFromNewsService() {
-  //   this.loadingTwelveNews = this.newsService.loadingTwelveNews;
-  //   this.news = this.newsService.news;
-  // }
+  getDataFromNewsService() {
+    this.loadingTwelveNews = this.newsService.loadingTwelveNews;
+    this.news = this.newsService.news;
+  }
 
-  // refreshArticles() {
-  //   this.articlesService.loadingArticles = false;
-  //   this.getAllArticles();
-  //   this.getTwelveNews();
-  //   setTimeout(() => {
-  //     this.getDataFromService();
-  //     this.getDataFromNewsService();
-  //     this.articlesService.loadingArticles = false;
-  //   }, 2000);
-  // }
+  refreshArticles() {
+    this.articlesService.loadingArticles = false;
+    this.getAllArticles();
+    this.getTwelveNews();
+    setTimeout(() => {
+      this.getDataFromService();
+      this.getDataFromNewsService();
+      this.articlesService.loadingArticles = false;
+    }, 2000);
+  }
 
-  // getTwelveNews() {
-  //   this.newsService.getTwelveNews(1);
-  // }
+  getTwelveNews() {
+    this.newsService.getTwelveNews(1);
+  }
 
-  // redirect(id) {
-  //   this.router.navigate(['/full-news/', id]);
-  // }
+  redirect(id) {
+    this.router.navigate(['/full-news/', id]);
+  }
 
 }

@@ -34,7 +34,6 @@ app.use('/savenews', savenews );
 app.use('/articles', articles );
 app.use('/authentication', authentication );
 
-
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname + '/client/src/index.html'));
 // });

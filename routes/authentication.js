@@ -152,7 +152,8 @@ module.exports = (router) => {
     router.use((req, res, next) => {
         const token = req.headers['authorization'];
         if (!token) {
-            res.json({ success: false, message: 'Токен не предоставлен' });
+            // res.json({ success: false, message: 'Токен не предоставлен' });
+            next();
         } else {
             jwt.verify(token, config.secret, (err, decoded) => {
                 if (err) {
