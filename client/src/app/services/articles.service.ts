@@ -33,34 +33,34 @@ export class ArticlesService {
   }
 
   getAllArticles() {
-    this.http.get(this.domain + '/articles/allArticles/').map(res => res.json()).subscribe(data => {
-      if (this.articlesPosts !== data.articles) {
-        this.loadingArticles = false;
-        this.articlesArray = [];
-        this.countArrayArticles = [];
-        this.articlesPosts = data.articles;
-        const articlesCount = this.articlesPosts.length;
-        let count;
-        count = Math.ceil(articlesCount / 12);
-        let s;
-        for (let i = 1; i <= count; i++) {
-          if (i === 1 && articlesCount === 13) {
-            s = articlesCount - 1;
-          } else {
-            s = articlesCount;
-          }
-          for (let k = (i - 1) * 12; k < s; k++) {
-            this.articlesArray.push({ number: i, post: this.articlesPosts[k] });
-          }
-        }
-        for (let i = 1; i <= count; i++) {
-          this.countArrayArticles.push(i);
-        }
-        this.loadingArticles = true;
-      } else {
-        this.loadingArticles = true;
-      }
-    })
+  //   this.http.get(this.domain + '/articles/allArticles/').map(res => res.json()).subscribe(data => {
+  //     if (this.articlesPosts !== data.articles) {
+  //       this.loadingArticles = false;
+  //       this.articlesArray = [];
+  //       this.countArrayArticles = [];
+  //       this.articlesPosts = data.articles;
+  //       const articlesCount = this.articlesPosts.length;
+  //       let count;
+  //       count = Math.ceil(articlesCount / 12);
+  //       let s;
+  //       for (let i = 1; i <= count; i++) {
+  //         if (i === 1 && articlesCount === 13) {
+  //           s = articlesCount - 1;
+  //         } else {
+  //           s = articlesCount;
+  //         }
+  //         for (let k = (i - 1) * 12; k < s; k++) {
+  //           this.articlesArray.push({ number: i, post: this.articlesPosts[k] });
+  //         }
+  //       }
+  //       for (let i = 1; i <= count; i++) {
+  //         this.countArrayArticles.push(i);
+  //       }
+  //       this.loadingArticles = true;
+  //     } else {
+  //       this.loadingArticles = true;
+  //     }
+  //   })
   }
 
   getSingleArticle(id) {

@@ -13,27 +13,27 @@ import 'rxjs/add/operator/takeWhile';
 })
 export class ArticlesComponent implements OnInit {
 
-  admin = false;
-  loadingArticles;
-  articlesPosts;
-  articlesArray;
-  countArrayArticles;
-  currentId;
-  news;
-  loadingTwelveNews;
-  // articlesCount;
-  // count;
-  // username;
-  // message;
-  // messageClass;
+  // admin = false;
+  // loadingArticles;
+  // articlesPosts;
+  // articlesArray;
+  // countArrayArticles;
+  // currentId;
+  // news;
+  // loadingTwelveNews;
+  // // articlesCount;
+  // // count;
+  // // username;
+  // // message;
+  // // messageClass;
 
-  constructor(
-    private articlesService: ArticlesService,
-    private authService: AuthService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private newsService: NewsService
-  ) { }
+  // constructor(
+  //   private articlesService: ArticlesService,
+  //   private authService: AuthService,
+  //   private activatedRoute: ActivatedRoute,
+  //   private router: Router,
+  //   private newsService: NewsService
+  // ) { }
 
   ngOnInit() {
     // if (!this.admin) {
@@ -50,21 +50,21 @@ export class ArticlesComponent implements OnInit {
     //     } else {
     //       this.currentId = +params['id'];
     //     }
-    //   });
+      // });
 
-    // this.getAllArticles();
-    // this.getTwelveNews();
-    // if (!this.articlesService.loadingArticles || !this.newsService.loadingTwelveNews) {
-    //   interval(25)
-    //     .takeWhile(() => this.check())
-    //     .subscribe(() => {
-    //       this.getDataFromService();
-    //       this.getDataFromNewsService();
-    //     })
-    // } else {
-    //   this.getDataFromService();
-    //   this.getDataFromNewsService();
-    // }
+  //   this.getAllArticles();
+  //   this.getTwelveNews();
+  //   if (!this.articlesService.loadingArticles || !this.newsService.loadingTwelveNews) {
+  //     interval(25)
+  //       .takeWhile(() => this.check())
+  //       .subscribe(() => {
+  //         this.getDataFromService();
+  //         this.getDataFromNewsService();
+  //       })
+  //   } else {
+  //     this.getDataFromService();
+  //     this.getDataFromNewsService();
+  //   }
   }
 
   // check() {
