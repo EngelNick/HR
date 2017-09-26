@@ -26,8 +26,8 @@
                 <span class="sr-only">Previous</span>
               </a>
           </li>
-          <li *ngFor="let index of countArray" class="page-item"><a class="page-link" [routerLink]="['/vacancies/', index]">{{index}}</a></li>
-          <li class="page-item" *ngIf="currentId+1 <= countArray">
+          <li *ngFor="let index of countArrayVacancies" class="page-item"><a class="page-link" [routerLink]="['/vacancies/', index]">{{index}}</a></li>
+          <li class="page-item" *ngIf="currentId+1 <= countArrayVacancies">
             <a class="page-link" [routerLink]="['/news/', currentId+1]" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Next</span>

@@ -29,16 +29,11 @@ export class VacanciesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      if (profile.success) {
-        this.username = profile.user.username;
-      }
-    });
-
     if (!this.admin) {
       this.authService.isAdmin().subscribe(data => {
         if (data.success) {
           this.admin = data.user.admin;
+        } else {
         }
       });
     }
