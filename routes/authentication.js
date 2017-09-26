@@ -149,7 +149,8 @@ module.exports = (router) => {
         }
     });
     
-    router.use((req, res, next) => {
+    // router.use((req, res, next) => {
+        router.use((req, res) => {
         const token = req.headers['authorization'];
         if (!token) {
             res.json({ success: false, message: 'Токен не предоставлен' });
@@ -159,7 +160,7 @@ module.exports = (router) => {
                     res.json({ success: false, message: 'Некорректный токен ' + err });
                 } else {
                     req.decoded = decoded;
-                    next();
+                    // next();
                 }
             });
         }

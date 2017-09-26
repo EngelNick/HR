@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { VacanciesService } from '../../services/vacancies.service';
+import { VacanciesService } from 'app/services/vacancies.service';
+import { AuthService } from 'app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval } from 'rxjs/observable/interval';
 import 'rxjs/add/operator/takeWhile';
