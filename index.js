@@ -28,10 +28,11 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
-app.use('/authentication', authentication );
-app.use('/savenews', savenews );
+
 app.use('/vacancies', vacancies );
+app.use('/savenews', savenews );
 app.use('/articles', articles );
+app.use('/authentication', authentication );
 
 
 // app.get('*', (req, res) => {

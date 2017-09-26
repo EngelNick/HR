@@ -33,7 +33,8 @@ export class VacanciesService {
   }
 
   getAllVacancies() {
-    this.http.get(this.domain + '/vacancies/allvacancies/').map(res => res.json()).subscribe(data => {
+    this.createAuthenticationHeaders();
+    this.http.get(this.domain + '/vacancies/allvacancies', this.options).map(res => res.json()).subscribe(data => {
       if (this.vacanciesPosts !== data.vacancies) {
         this.loadingVacancies = false;
         this.vacanciesArray = [];
