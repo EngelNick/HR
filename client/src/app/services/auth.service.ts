@@ -88,18 +88,15 @@ export class AuthService {
   }
 
   getProfile() {
-    this.createAuthenticationHeaders();
-    if (!this.loadingProfile) {
-      interval(25)
-        .takeWhile(() => !this.loadingProfile)
-        .subscribe(() => {
-          if (this.authToken === localStorage.getItem('token')) {
-            this.loadingProfile = true;
-          }
-        })
-      }
-    this.createAuthenticationHeaders();
-    if (this.authToken !== null && this.authToken !== undefined) {
+    if (this.loggedIn()) {
+      this.createAuthenticationHeaders();
+        interval(25)
+          .takeWhile(() => !this.loadingProfile)
+          .subscribe(() => {
+            if (this.authToken === localStorage.getItem('token')) {
+              this.loadingProfile = true;
+            }
+          });
       return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
     } else {
       return this.http.get(this.domain + '/authentication/admin-profile').map(res => res.json());

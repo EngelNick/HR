@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   }
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
-      if (!this.authService.loadingProfile) {
+      if (!this.authService.loadingProfile && profile.success) {
       this.authService.username = profile.user.username;
       this.authService.email = profile.user.email;
       this.authService.admin = profile.user.admin ? 'Вы имеете права администратора' : 'Вы не администратор';
