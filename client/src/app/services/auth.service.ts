@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from 'angular2-jwt';
+import { interval } from 'rxjs/observable/interval';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,7 @@ export class AuthService {
   email;
   admin;
   loadingProfile;
+  loadingAdmin;
 
   constructor(
     private http: Http
@@ -68,15 +70,34 @@ export class AuthService {
   }
 
   isAdmin() {
+    this.createAuthenticationHeaders();
+    if (!this.loadingAdmin) {
+      interval(25)
+        .takeWhile(() => !this.loadingAdmin)
+        .subscribe(() => {
+          if (this.authToken === localStorage.getItem('token')) {
+            this.loadingAdmin = true;
+          }
+        })
+      }
     if (this.authToken !== null && this.authToken !== undefined) {
-      this.createAuthenticationHeaders();
       return this.http.get(this.domain + '/authentication/adminCheck', this.options).map(res => res.json());
     } else {
-      return this.http.get(this.domain + '/authentication/admin-profile', this.options).map(res => res.json());
+      return this.http.get(this.domain + '/authentication/admin-profile').map(res => res.json());
     }
   }
 
   getProfile() {
+    this.createAuthenticationHeaders();
+    if (!this.loadingProfile) {
+      interval(25)
+        .takeWhile(() => !this.loadingProfile)
+        .subscribe(() => {
+          if (this.authToken === localStorage.getItem('token')) {
+            this.loadingProfile = true;
+          }
+        })
+      }
     this.createAuthenticationHeaders();
     if (this.authToken !== null && this.authToken !== undefined) {
       return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
