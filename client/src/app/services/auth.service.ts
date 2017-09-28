@@ -77,9 +77,8 @@ export class AuthService {
   }
 
   getProfile() {
-    this.loadToken();
+    this.createAuthenticationHeaders();
     if (this.authToken !== null && this.authToken !== undefined) {
-      this.createAuthenticationHeaders();
       return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
     } else {
       return this.http.get(this.domain + '/authentication/admin-profile').map(res => res.json());
