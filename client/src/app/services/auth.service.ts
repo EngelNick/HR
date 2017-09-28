@@ -16,7 +16,6 @@ export class AuthService {
   email;
   admin;
   loadingProfile;
-  loadingAdmin;
 
   constructor(
     private http: Http
@@ -70,17 +69,15 @@ export class AuthService {
   }
 
   isAdmin() {
-    this.createAuthenticationHeaders();
-    if (!this.loadingAdmin) {
-      interval(25)
-        .takeWhile(() => !this.loadingAdmin)
-        .subscribe(() => {
-          if (this.authToken === localStorage.getItem('token')) {
-            this.loadingAdmin = true;
-          }
-        })
-      }
-    if (this.authToken !== null && this.authToken !== undefined) {
+    if (this.loggedIn()) {
+      // interval(25)
+      //   .takeWhile(() => !this.loadingAdmin)
+      //   .subscribe(() => {
+      //     if (this.authToken === localStorage.getItem('token')) {
+      //       this.loadingAdmin = true;
+      //     }
+      //   })
+      this.createAuthenticationHeaders();
       return this.http.get(this.domain + '/authentication/adminCheck', this.options).map(res => res.json());
     } else {
       return this.http.get(this.domain + '/authentication/admin-profile').map(res => res.json());
@@ -90,13 +87,13 @@ export class AuthService {
   getProfile() {
     if (this.loggedIn()) {
       this.createAuthenticationHeaders();
-        interval(25)
-          .takeWhile(() => !this.loadingProfile)
-          .subscribe(() => {
-            if (this.authToken === localStorage.getItem('token')) {
-              this.loadingProfile = true;
-            }
-          });
+        // interval(25)
+        //   .takeWhile(() => !this.loadingProfile)
+        //   .subscribe(() => {
+        //     if (this.authToken === localStorage.getItem('token')) {
+        //       this.loadingProfile = true;
+        //     }
+        //   });
       return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
     } else {
       return this.http.get(this.domain + '/authentication/admin-profile').map(res => res.json());
