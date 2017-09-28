@@ -68,6 +68,7 @@ export class AuthService {
   }
 
   isAdmin() {
+    this.loadToken();
     if (this.authToken !== null && this.authToken !== undefined) {
       this.createAuthenticationHeaders();
       return this.http.get(this.domain + '/authentication/adminCheck', this.options).map(res => res.json());
